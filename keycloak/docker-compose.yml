@@ -18,7 +18,7 @@ services:
       healthcheck:
         test: ["CMD", "mysqladmin", "ping", "--silent"]
   keycloak:
-      image: quay.io/keycloak/keycloak:latest
+      image: jboss/keycloak:11.0.3
       environment:
         DB_VENDOR: mariadb
         DB_ADDR: mariadb
@@ -29,7 +29,7 @@ services:
         KEYCLOAK_PASSWORD: Pa55w0rd
         JGROUPS_DISCOVERY_PROTOCOL: JDBC_PING
       ports:
-        - 8080:8080
+        - 18080:8080
       command: ["-b 0.0.0.0", "--server-config=standalone.xml"]
       depends_on:
         - mariadb
