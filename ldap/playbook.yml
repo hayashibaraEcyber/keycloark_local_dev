@@ -1,0 +1,41 @@
+- hosts: all
+  remote_user: vagrant
+  become: yes
+  vars:
+    docker_compose_ver: 1.26.2
+
+  tasks:
+    - name: Yum update all
+      yum: 
+        name: '*'
+        state: latest
+
+    - name: Install packages for 389ds
+      yum: 
+        name:
+          - kernel
+          - kernel-headers
+          - kernel-devel
+          - bzip2
+          - gcc
+          - 389-ds-base
+        state: latest
+
+    - name: Set a hostname
+      hostname:
+        name: ldap.example.com
+
+    - name: Put inf file
+      copy:
+        src: install.inf
+        dest: /home/vagrant
+        mode: 0644
+
+    - name: Put /etc/hosts file
+      copy:
+        src: hosts
+        dest: /etc
+        mode: 0644
+
+    - name: Init 389ds 
+      shell: setup-ds.pl -s -f /home/vagrant/install.inf

@@ -1,0 +1,9 @@
+[General]
+FullMachineName=ldap.example.com
+SuiteSpotUserID=nobody
+[slapd]
+ServerPort=389
+ServerIdentifier=ldap
+Suffix=dc=ldap,dc=example,dc=com
+RootDN=cn=admin
+RootDNPwd=Pa55w0rd
